@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="co.edureka.model.Customer" table="ECOM_CUSTOMER">
+      <id name="cid" column="CID">
+         <generator class="increment"/>
+      </id>
+      <property name="name" column="NAME" />
+      <property name="email" column="EMAIL" />
+      
+      <list name="addresses" cascade="all">
+      	<key column="customerid"/>
+      	<list-index column="idx"/>
+      	<one-to-many class="co.edureka.model.Address"/>
+      </list>
+   </class>
+   
+   <class name="co.edureka.model.Address" table="ECOM_ADDRESS">
+      <id name="aid" column="AID">
+         <generator class="increment"/>
+      </id>
+      <property name="adrsLine" column="ADRSLINE" />
+      <property name="city" column="CITY" />
+      <property name="state" column="STATE" />
+      <property name="zipCode" column="ZIPCODE" />
+   </class>
+   
+</hibernate-mapping>

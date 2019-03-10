@@ -41,6 +41,7 @@ public class App {
 		Configuration config = null;
 		SessionFactory factory = null;
 		Session session = null;
+		Session session2 = null;
 		Transaction transaction = null;
 		
 		try {
@@ -54,7 +55,11 @@ public class App {
 			//factory = config.buildSessionFactory(); 	// To Create Session
 			factory = aConfig.buildSessionFactory(); 	// To Create Session
 			
+			// 1st session
 			session = factory.openSession(); 			// Creating Connection to DB
+			
+			//2nd session
+			session2 = factory.openSession();
 			
 			transaction = session.beginTransaction();	// Begin Transaction to perform any SQL Operation 
 			
@@ -66,8 +71,12 @@ public class App {
 			
 			
 			// Fetch Single Record Operation (Fire SQL Query > Conversion of Data into Employee Object)
-			//Employee eRef = (Employee)session.get(Employee.class, 4);
-			//System.out.println(eRef);
+			Employee eRef1 = (Employee)session.get(Employee.class, 2);
+			System.out.println(eRef1);
+			
+			//We are fetching the same object again !!
+			Employee eRef2 = (Employee)session.get(Employee.class, 2);
+			System.out.println(eRef2);
 			
 			// Update Operation | First we should perform fetch operation and than update the data
 			//eRef.setName("Sia Watson");
@@ -105,10 +114,10 @@ public class App {
 			
 			
 			// Batch operation
-			for(int i=1;i<=100;i++){
+			/*for(int i=1;i<=100;i++){
 				Employee emp = new Employee(null, "Employee"+i, "emp"+i+"@example.com", 30000+i, "Sales");
 				session.save(emp);  // 100 Employee Objects shall be saved in session
-			}
+			}*/
 			
 			// transaction.commit() will now save 100 objects all toigether as a batch
 			transaction.commit();						// Commit Transaction to perform SQL Operations
@@ -118,8 +127,8 @@ public class App {
 		} catch (Exception e) {
 			System.out.println("Some Exception:"+e);
 		}finally{
-			session.close();
-			factory.close();
+			session.close(); // Till Session is not closed, we can fetch the same data with no additional SQL Query fired 
+			factory.close(); // For multiple Session Objects, data shall be maintained in Cache
 		}
 		
 	}

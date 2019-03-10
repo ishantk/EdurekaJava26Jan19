@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+    <!-- Configure Object Data in XML File -->
+
+   <bean id="r1" class="co.edureka.aop.Ride">
+       <property name="source" value="Pristine Magnum"/>
+       <property name="destination" value="Redwood Shores"/>
+       <property name="typeOfCab" value="1"/>
+   </bean>
+   
+   <bean id="befAdv" class="co.edureka.aop.BeforeAdvice"/>
+   <bean id="aftAdv" class="co.edureka.aop.AfterAdvice"/>
+   
+    <bean id="rideProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+       <property name="target" ref="r1"/>	<!-- Setter Injection -->
+       <property name="interceptorNames">	<!-- Setter Injection on Collection -->
+       	<list>
+       		<value>befAdv</value>
+       		<value>aftAdv</value>
+       	</list>
+       </property>
+   </bean>
+
+</beans>

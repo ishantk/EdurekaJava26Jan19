@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+    <!-- Configure Object Data in XML File -->
+
+   <!-- <bean id="c1" class="co.edureka.model.Connection" scope="prototype"> -->
+   <bean id="c1" class="co.edureka.model.Connection" init-method="myInit" destroy-method="myDestroy">
+       <property name="driver" value="com.mysql.jdbc.Driver"/>
+       <property name="url" value="jdbc:mysql://localhost:/edureka"/>
+       <property name="user" value="mike"/>
+       <property name="password" value="mike123"/>
+   </bean>
+   
+   <bean class="co.edureka.model.PostProcessor"/>
+   
+  <!--  <bean id="c2" class="co.edureka.model.Connection">
+       <property name="driver" value="com.mysql.jdbc.Driver"/>
+       <property name="url" value="jdbc:mysql://localhost:/edureka"/>
+       <property name="user" value="sia.watson"/>
+       <property name="password" value="sia.w.123"/>
+   </bean> -->
+
+</beans>
